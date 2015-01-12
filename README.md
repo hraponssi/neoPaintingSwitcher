@@ -1,4 +1,4 @@
-neoPaintingSwitch 1.35
+neoPaintingSwitch 1.36
 =====================
 
 This plugin uses the same basic idea as located [here](http://forums.bukkit.org/threads/inactive-edit-paintingswitch-v0-1-choose-paintings-with-ease-672.5788/) and [here] (http://forums.bukkit.org/threads/edit-paintingswitch-v0-4-scroll-through-paintings-1185.24604/).
