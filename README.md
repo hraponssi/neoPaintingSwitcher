@@ -12,8 +12,12 @@ Features:
 * Permissions support "neopaintingswitch.use".
 * Supports worldguard
 
-Version 1.35
+Version 1.36
 ============
+* Updated for use with Worldguard 6
+* Implemented the missing debug config option for permissions debugging
+
+Version 1.35
 * added bPermissions and Vault permissions support
 * updated event priorities to be friendlier to other plugins
 * small code changes to internal player data storage
