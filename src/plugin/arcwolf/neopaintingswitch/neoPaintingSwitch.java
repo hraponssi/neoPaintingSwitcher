@@ -37,8 +37,7 @@ public class neoPaintingSwitch extends JavaPlugin {
 
     private boolean permissionsEr = false;
     private boolean permissionsSet = false;
-    private int debug = 0;
-
+    private boolean debug = false;
     private Server server;
     private PluginDescriptionFile pdfFile;
     private PluginManager pm;
@@ -68,6 +67,7 @@ public class neoPaintingSwitch extends JavaPlugin {
         FileConfiguration config = this.getConfig();
         if (!configFile.exists()) {
             config.set("free4All", Boolean.valueOf(false));
+            config.set("debug", Boolean.valueOf(debug));
             try {
                 config.save(configFile);
             } catch (IOException e) {
@@ -75,6 +75,7 @@ public class neoPaintingSwitch extends JavaPlugin {
             }
         }
         free4All = config.getBoolean("free4All", false);
+        debug = config.getBoolean("debug", false);
     }
 
     @Override
@@ -94,8 +95,8 @@ public class neoPaintingSwitch extends JavaPlugin {
     }
 
     public boolean hasPermission(Player player, String permission) {
-        getPermissionsPlugin();
-        if (debug == 1) {
+        if (debug) { // For use with permissions debugging
+            getPermissionsPlugin();
             if (vaultPerms != null) {
                 String pName = player.getName();
                 String gName = vaultPerms.getPrimaryGroup(player);
@@ -153,11 +154,11 @@ public class neoPaintingSwitch extends JavaPlugin {
             else {
                 LOGGER.info("Unknown permissions plugin " + permission + " " + player.hasPermission(permission));
             }
-        }
+        }// -- End Debug permissions hooks --
         return player.isOp() || player.hasPermission(permission);
     }
 
-    // permissions plugin enabled test
+    // permissions plugin debug information
     private void getPermissionsPlugin() {
         if (server.getPluginManager().getPlugin("Vault") != null) {
             RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);

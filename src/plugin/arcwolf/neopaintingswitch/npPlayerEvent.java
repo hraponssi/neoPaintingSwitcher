@@ -23,12 +23,6 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.BlockIterator;
 
-import com.sk89q.worldedit.Vector;
-import com.sk89q.worldguard.LocalPlayer;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.managers.RegionManager;
-import static com.sk89q.worldguard.bukkit.BukkitUtil.*;
-
 public class npPlayerEvent implements Listener {
 
     private neoPaintingSwitch plugin;
@@ -41,6 +35,8 @@ public class npPlayerEvent implements Listener {
     // Code pull from BangL (https://github.com/BangL)
     // https://github.com/arcwolf/neoPaintingSwitch/pull/1
     //
+    // Updated for worldguard 6
+    //
     private boolean canModifyPainting(Player player, Entity e) {
         // First check for op ...
         if (!player.isOp()
@@ -48,12 +44,7 @@ public class npPlayerEvent implements Listener {
                 && plugin.worldguard
                 // ... if yes, then check if player can build in any region anyways.
                 && !plugin.hasPermission(player, "worldguard.region.bypass." + player.getWorld().getName().toLowerCase())) {
-            Vector pt = toVector(e.getLocation());
-            LocalPlayer localPlayer = plugin.wgp.wrapPlayer(player);
-
-            RegionManager regionManager = plugin.wgp.getRegionManager(player.getWorld());
-            ApplicableRegionSet set = regionManager.getApplicableRegions(pt);
-            return set.canBuild(localPlayer);
+            return plugin.wgp.canBuild(player, e.getLocation());
         }
         return true;
     }
