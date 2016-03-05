@@ -1,4 +1,4 @@
-neoPaintingSwitch 1.36
+neoPaintingSwitch 1.371
 =====================
 
 This plugin uses the same basic idea as located [here](http://forums.bukkit.org/threads/inactive-edit-paintingswitch-v0-1-choose-paintings-with-ease-672.5788/) and [here] (http://forums.bukkit.org/threads/edit-paintingswitch-v0-4-scroll-through-paintings-1185.24604/).
@@ -12,8 +12,16 @@ Features:
 * Permissions support "neopaintingswitch.use".
 * Supports worldguard
 
-Version 1.36
+Version 1.371
 ============
+* Having a shield in your right now will not be ignored by the plugin
+** Switched to main hand 
+
+Version 1.37
+* updated to support spigot/mc 1.9
+** Plugin now uses Off hand for clicking. 
+
+Version 1.36
 * Updated for use with Worldguard 6
 * Implemented the missing debug config option for permissions debugging
 
