@@ -1,6 +1,6 @@
 name: neoPaintingSwitch
 main: plugin.arcwolf.neopaintingswitch.neoPaintingSwitch
-version: 1.36
+version: 1.371
 permissions:
     neopaintingswitch.*:
         description: Wildcard option for comfort.

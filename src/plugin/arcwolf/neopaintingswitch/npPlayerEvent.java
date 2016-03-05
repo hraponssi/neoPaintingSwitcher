@@ -21,6 +21,7 @@ import org.bukkit.event.hanging.HangingPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.util.BlockIterator;
 
 public class npPlayerEvent implements Listener {
@@ -81,7 +82,7 @@ public class npPlayerEvent implements Listener {
         if (event.isCancelled())
             return;
         Entity entity = event.getRightClicked();
-        if (entity instanceof Painting && (plugin.hasPermission(event.getPlayer(), "neopaintingswitch.use") || plugin.free4All)) {
+        if (event.getHand() == EquipmentSlot.HAND && entity instanceof Painting && (plugin.hasPermission(event.getPlayer(), "neopaintingswitch.use") || plugin.free4All)) {
             Player player = event.getPlayer();
             if (canModifyPainting(player, entity)) {
                 Set<Entry<String, npSettings>> keys = npSettings.playerSettings.entrySet();
