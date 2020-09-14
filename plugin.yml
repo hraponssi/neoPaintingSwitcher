@@ -1,11 +1,16 @@
 name: neoPaintingSwitch
 main: plugin.arcwolf.neopaintingswitch.neoPaintingSwitch
-version: 1.371
+version: 1.4
+softdepend: [PlotSquared,WorldEdit,WorldGuard]
 permissions:
     neopaintingswitch.*:
         description: Wildcard option for comfort.
         children:
             neopaintingswitch.use: true
+            neopaintingswitch.bypass: true
     neopaintingswitch.use:
         description: Allows the user to scroll through paintings.
+        default: op
+    neopaintingswitch.bypass:
+        description: Allows the user to bypass painting permissions based on plots or regions.
         default: op

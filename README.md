@@ -1,9 +1,11 @@
-neoPaintingSwitch 1.371
+neoPaintingSwitch 1.4
 =====================
 
 This plugin uses the same basic idea as located [here](http://forums.bukkit.org/threads/inactive-edit-paintingswitch-v0-1-choose-paintings-with-ease-672.5788/) and [here](http://forums.bukkit.org/threads/edit-paintingswitch-v0-4-scroll-through-paintings-1185.24604/).
 
 This plugin was originally created by [Edward Hand](http://forums.bukkit.org/members/edward-hand.13332/) (credit to him!) and also eventually updated by [MadMonkeyCo](http://forums.bukkit.org/members/madmonkeyco.22820/). However is was abandoned again and because I use it I needed it working. Basically, it simplifies the selecting of paintings and saves alot of time. Permissions are supported.
+
+Continued support by Hraponssi after being abandoned again. Credit to [Arcwolf](https://bitbucket.org/%7B58981208-0080-4b47-b63b-d176583a1d4a%7D/) , plugin page [here](https://dev.bukkit.org/projects/paintingswitch).
 
 Features:
 =========
@@ -12,8 +14,15 @@ Features:
 * Permissions support "neopaintingswitch.use".
 * Supports worldguard
 
-Version 1.371
+Version 1.4
 ============
+* Worldguard 7 update
+* Plotsquared support
+* Removed permission debuging
+* Bypass permission
+* 1.16.3
+
+Version 1.371
 * Having a shield in your right now will not be ignored by the plugin
 * Switched to main hand 
 

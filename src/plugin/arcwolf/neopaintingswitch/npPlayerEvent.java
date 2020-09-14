@@ -24,6 +24,20 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.util.BlockIterator;
 
+import com.plotsquared.core.api.PlotAPI;
+import com.plotsquared.core.player.PlotPlayer;
+import com.plotsquared.core.plot.Plot;
+import com.sk89q.worldedit.WorldEdit;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldedit.bukkit.BukkitWorld;
+import com.sk89q.worldguard.LocalPlayer;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.flags.Flags;
+import com.sk89q.worldguard.protection.flags.StateFlag;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
+import com.sk89q.worldguard.protection.regions.RegionQuery;
+
 public class npPlayerEvent implements Listener {
 
     private neoPaintingSwitch plugin;
@@ -33,21 +47,55 @@ public class npPlayerEvent implements Listener {
     }
 
     // Updated WG support
-    // Code pull from BangL (https://github.com/BangL)
-    // https://github.com/arcwolf/neoPaintingSwitch/pull/1
+    // Added PlotSquared support
+    // Updated by Hraponssi
     //
-    // Updated for worldguard 6
+    // Updated for worldguard 7*
     //
     private boolean canModifyPainting(Player player, Entity e) {
-        // First check for op ...
-        if (!player.isOp()
+    	if(plugin.hasPermission(player, "neopaintingswitch.bypass")) return true;
+    	if(!player.isOp() && plugin.plotsquared) {
+    		if(!inAccessedPlot(player)) {
+    			return false;
+    		}
+    	}
+    	// First check for op ...
+        if (!player.isOp() 
                 // ... if not, check if WorldGuardPlugin existent ...
                 && plugin.worldguard
-                // ... if yes, then check if player can build in any region anyways.
+                // ... if yes, check if the player has a bypass
+                && !hasBypass(player, e.getLocation())
+                // ... if not, then check if player can build in any region anyways.
                 && !plugin.hasPermission(player, "worldguard.region.bypass." + player.getWorld().getName().toLowerCase())) {
-            return plugin.wgp.canBuild(player, e.getLocation());
+        	LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(player);
+        	Location l = e.getLocation();
+        	com.sk89q.worldedit.util.Location loc = BukkitAdapter.adapt(l);
+        	RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+        	RegionQuery query = container.createQuery();
+        	return query.testState(loc, localPlayer, Flags.BUILD);
         }
         return true;
+    }
+    
+	public boolean inAccessedPlot(Player p) { //Turns out there is no point in this since interacting with paintings is blocked?
+		PlotPlayer<?> player = PlotPlayer.wrap(p);
+		if(player.getPlotAreaAbs() == null) return false; //if there are no plots in the world, bypass
+		Plot plot = player.getCurrentPlot();
+		if(plot == null) return false;
+		if(plot.hasOwner()) {
+			if(plot.getOwner().equals(p.getUniqueId())) {
+				return true;
+			} else if(plot.getTrusted().contains(p.getUniqueId())) {
+				return true;
+			} if(plot.isOnline() && plot.getMembers().contains(p.getUniqueId())) {
+				return true;
+			}
+		}
+		return false;
+	}
+    
+    public boolean hasBypass(Player p, Location l) {
+        return WorldGuard.getInstance().getPlatform().getSessionManager().hasBypass(WorldGuardPlugin.inst().wrapPlayer(p), new BukkitWorld(l.getWorld()));
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -108,7 +156,7 @@ public class npPlayerEvent implements Listener {
                 }
             }
             else {
-                player.sendMessage(ChatColor.RED + "This Painting is locked by worldguard.");
+                player.sendMessage(ChatColor.RED + "This Painting is locked.");
                 event.setCancelled(true);
             }
         }
