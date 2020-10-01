@@ -1,6 +1,7 @@
 name: neoPaintingSwitch
 main: plugin.arcwolf.neopaintingswitch.neoPaintingSwitch
 version: 1.4
+api-version: 1.16
 softdepend: [PlotSquared,WorldEdit,WorldGuard]
 permissions:
     neopaintingswitch.*:
