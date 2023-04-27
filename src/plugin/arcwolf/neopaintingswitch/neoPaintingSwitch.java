@@ -10,10 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.plotsquared.core.PlotSquared;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 public class neoPaintingSwitch extends JavaPlugin {
